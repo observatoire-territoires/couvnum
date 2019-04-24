@@ -180,14 +180,11 @@ newggslopegraph(evol_couv_FRMET_OPE_4G ,
 
 
 ---
-
-
+class: top
+background-image: url(./img/carte7_grille_densite-01.jpg)
+background-size: 260px
+background-position: 88% 50%
 # Analyse par la grille de densité
-
-
-<!-- background-image: url("img/carte7_grille_densite-01.jpg"), url("img/logo-OT-CMJN_carre.png"); -->
-<!-- background-size: 24%, 5%; -->
-<!-- background-position: 90% 60%, right 10px top 10px; -->
 
 
 
@@ -220,8 +217,7 @@ COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics %>%
 
 ```
 
-.pull-left[
-```{r plot_grid_dens,echo=F, message=F, warning=F, fig.width=10,fig.height=6, fig.retina=2}
+```{r plot_grid_dens,echo=F, message=F, warning=F, fig.width=10,fig.height=7, fig.retina=2}
 # graphique en ligne
 library(scales)
 library(hrbrthemes)
@@ -264,15 +260,14 @@ ggplot(data=GRIDENS_4G_indics ,
   )
 
 ```
-]
 
-.pull-right[
-<img src="./img/carte7_grille_densite-01.jpg" width=200 height=242>
-]
+
 ---
 
 # Diffusion sur le site cartographique OT
-<iframe src="http://carto.observatoire-des-territoires.gouv.fr/index.php?indics=couverture_tel.couv4g&serie=2018&view=map56&lang=fr&maponly=1" width="650px" height="450px" frameBorder="0"></iframe>
+
+<iframe src="http://carto.observatoire-des-territoires.gouv.fr/index.php?indics=couverture_tel.couv4g&serie=2018&view=map56&lang=fr&maponly=1" width="650px" height="450px"></iframe>
+
 
 ---
 class: top
