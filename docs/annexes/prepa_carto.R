@@ -29,7 +29,7 @@ COMMG_COG2016_METDOM <- COMMG_COG2016_MET %>%
 ## mailles supracommunales
 library(migR)
 
-geo_DEP_poly <-
+geo_DEP_poly_FRMETDOM <-
   creation_carto_supracomm(CARTO_COMM = COMMG_COG2016_METDOM,
                            CODE_COMMUNE = "INSEE_COM",
                            COG_IN = 2016,
@@ -37,3 +37,11 @@ geo_DEP_poly <-
                            NIVGEO = "DEP",
                            FORMAT = "poly",
                            SG = 0.02)
+
+
+
+############
+### export temporaires
+
+st_write(geo_EPCI_poly_FRMETDOM, "./docs/temp/geo_EPCI_poly_FRMETDOM.geojson")
+st_write(geo_DEP_poly_FRMETDOM, "./docs/temp/geo_DEP_poly_FRMETDOM.geojson")
