@@ -2,7 +2,7 @@
 title: "Couverture 4G"
 subtitle: "Exploration des cartographies mises en ligne par l'ARCEP"  
 author: "CGET / Observatoire des territoires"
-date: 'Avril 2019'
+date: 'Mai 2019'
 output:
   xaringan::moon_reader:
     css: ["xaringan-themer.css","ultra.css","animate.css"]
@@ -135,7 +135,7 @@ duo_accent(primary_color = "#217d35",
 Couches cartographiques d’emprise théorique de chaque opérateur mobile issues de l'**Arcep** sur  [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/mon-reseau-mobile/). 
 ]
 .pull-right[
-<img src="./img/ecran_arcep_monreseaumobile.png" height="80px" width="150px" />
+<img src="./img/ecran_arcep_monreseaumobile.png" height="100px" />
 ]
 
 - 2G : qualité de service TBC/BC/CL/NA.
@@ -153,15 +153,14 @@ head(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics)
 
 
 ---
-class: center, animated, slideInRight
 # Evolution des emprises 4G des opérateurs
 
 
 .pull-left[
-- <img src="./img/evol_couv4G_BYT_072017_012019_v2.png" height="220px" width="220px" />
- <img src="./img/evol_couv4G_ORF_072017_012019_v2.png" height="220px" width="220px" />
-- <img src="./img/evol_couv4G_SFR_072017_012019_v2.png" height="220px" width="220px" />
-<img src="./img/evol_couv4G_FREE_072017_012019_v2.png" height="220px" width="220px" />
+- <img src="./img/evol_couv4G_BYT_072017_012019_v2.png" height="220px"  />
+ <img src="./img/evol_couv4G_ORF_072017_012019_v2.png" height="220px"  />
+- <img src="./img/evol_couv4G_SFR_072017_012019_v2.png" height="220px"  />
+<img src="./img/evol_couv4G_FREE_072017_012019_v2.png" height="220px" />
 ]
 .pull-right[
 
@@ -201,7 +200,7 @@ newggslopegraph(evol_couv_FRMET_OPE_4G ,
 
 
 ---
-# Zones noire / grise / blanche
+# Zone noire / grise / blanche
 ### juillet 2017
 ```{r calcul_nb_operateurs_s, echo=F, message=F, warning=F, include = F}
 
@@ -236,7 +235,7 @@ stats_croiz_superfice_nboperateur <-
 ```
 
 .pull-left[
-```{r plot_nb_operateurs_s_072017,echo=F, message=F, warning=F, fig.width=10,fig.height=8, fig.retina=2}
+```{r plot_nb_operateurs_s_072017,echo=F, message=F, warning=F, fig.width=10,fig.height=9, fig.retina=2}
 
 library(treemapify)
 
@@ -264,15 +263,15 @@ ggplot(stats_croiz_superfice_nboperateur %>%
 ]
 
 .pull-right[
-<img src="./img/couv4G_nb_operateurs_072017_v4.png" width=450 >
+<img src="./img/couv4G_nb_operateurs_072017_v4.png" width=600 >
 ]
 
 ---
-# Zones noire / grise / blanche
+# Zone noire / grise / blanche
 ### janvier 2019
 
 .pull-left[
-```{r plot_nb_operateurs_s_012019,echo=F, message=F, warning=F, fig.width=10,fig.height=8, fig.retina=2}
+```{r plot_nb_operateurs_s_012019,echo=F, message=F, warning=F, fig.width=10,fig.height=9, fig.retina=2}
 
 ggplot(stats_croiz_superfice_nboperateur %>%
          filter(an %in% 2019), 
@@ -298,7 +297,7 @@ ggplot(stats_croiz_superfice_nboperateur %>%
 ]
 
 .pull-right[
-<img src="./img/couv4G_nb_operateurs_012019_v4.png" width=450>
+<img src="./img/couv4G_nb_operateurs_012019_v4.png" width=600>
 ]
 
 
@@ -349,7 +348,7 @@ stats_croiz_superfice_nboperateur_REG <-
 
 ```
 
-```{r plot_nb_operateurs_s_reg_012019,echo=F, message=F, warning=F, fig.width=12,fig.height=7, fig.retina=5}
+```{r plot_nb_operateurs_s_reg_012019,echo=F, message=F, warning=F, fig.width=13,fig.height=8, fig.retina=5}
 
 
 library(geofacet)
@@ -382,6 +381,115 @@ ggplot(data = stats_croiz_superfice_nboperateur_REG %>%
 
 
 ```
+
+
+
+---
+# Zones exclusives
+### juillet 2017
+```{r calcul_nb_operateurs_detail, echo=F, message=F, warning=F, include = F}
+
+stats_croiz_superfice_nboperateurdetail <-
+  COMM_BDA16_4G_ORF_SFR_BYT_FRE_NA_072017  %>%
+  mutate(zone = "FRMET") %>%
+  mutate(an = 2017) %>%
+  rbind.data.frame(COMM_BDA16_4G_ORF_SFR_BYT_FRE_NA_012019 %>%
+                     mutate(zone = "FRMET") %>%
+                     mutate(an = 2019)) %>%
+    mutate(nb_OPE_couv = case_when(couvs_OPE %in% '' ~ 0,
+                                 couvs_OPE %in% c('NA_BYT_NA_NA','ORF_NA_NA_NA','NA_NA_NA_FRE','NA_NA_SFR_NA') ~ 1,
+                                 couvs_OPE %in% c('NA_BYT_NA_FRE','ORF_BYT_NA_NA','NA_BYT_SFR_NA','ORF_NA_NA_FRE','NA_NA_SFR_FRE', 'ORF_NA_SFR_NA') ~ 2,
+                                 couvs_OPE %in% c('ORF_BYT_NA_FRE','NA_BYT_SFR_FRE','ORF_BYT_SFR_NA','ORF_NA_SFR_FRE') ~ 3,
+                                 couvs_OPE %in% c('ORF_BYT_SFR_FRE') ~ 4) ) %>%
+  mutate(nb_detail_OPE_couv = case_when(couvs_OPE %in% '' ~ "Zone blanche", 
+                                        couvs_OPE %in% 'ORF_NA_NA_NA' ~ "Orange uniquement",
+                                        couvs_OPE %in% 'NA_BYT_NA_NA' ~ "ByTel uniquement",
+                                        couvs_OPE %in% 'NA_NA_SFR_NA' ~ "SFR uniquement",
+                                        couvs_OPE %in% 'NA_NA_NA_FRE' ~ "Free uniquement",
+                                        nb_OPE_couv %in% '2' ~ "2 opérateurs",
+                                        nb_OPE_couv %in% '3' ~ "3 opérateurs",
+                                        nb_OPE_couv %in% '4' ~ "4 opérateurs") ) %>%
+  select(CODE_INSEE, superficie, techno,nb_detail_OPE_couv,zone,an) %>%
+  group_by(an, nb_detail_OPE_couv) %>%
+  summarise(sup = sum(superficie, na.rm = T)) %>%
+  mutate(pct_sup = sup / sum(sup)) %>%
+  mutate(nb_detail_OPE_couv.f = factor(nb_detail_OPE_couv, levels = c("4 opérateurs", "3 opérateurs", "2 opérateurs",
+                                                               "Orange uniquement",
+                                                               "SFR uniquement",
+                                                               "ByTel uniquement",
+                                                               "Free uniquement",
+                                                               "Zone blanche")) )
+           
+
+```
+
+.pull-left[
+```{r plot_nb_operateurs_detail_072017,echo=F, message=F, warning=F, fig.width=10,fig.height=9, fig.retina=2}
+
+library(treemapify)
+
+ggplot(stats_croiz_superfice_nboperateurdetail %>%
+         filter(an %in% 2017), 
+       aes(area = pct_sup, fill = nb_detail_OPE_couv.f, 
+           subgroup = nb_detail_OPE_couv.f, 
+           label = paste0( round(pct_sup * 100,0), "%"))) +
+  geom_treemap(start = "bottomleft", layout = "fixed") +
+  geom_treemap_text( layout = "fixed", grow = F, reflow = T, colour = "black") +
+  geom_treemap_subgroup_border(layout = "fixed", colour = "black", size =1) +
+  scale_fill_manual(values = c('#000000',"#252525","#525252", "orangered","red","dodgerblue","green", "white"), name ="", guide=guide_legend(reverse=T)) +
+  theme_ipsum_rc() +
+  theme(axis.text.y = element_blank(),
+        legend.text=element_text(size=15),
+        strip.text.x = element_text(face = "bold"),
+        strip.background = element_rect(color = "grey"),
+        panel.grid = element_line(linetype = "longdash")) +
+  labs(
+    title = "Part de la surface couverte en 4G selon le nombre d'opérateurs présents",
+    subtitle = "en France métropolitaine",
+    caption = "Source : Arcep, opérateurs mobiles, juillet 2017/janvier 2019"
+  )
+```
+]
+
+.pull-right[
+<img src="./img/couv4G_nb_detail_operateurs_072017_v4.png" width=600 >
+]
+
+---
+# Zones exclusives
+### janvier 2019
+
+.pull-left[
+```{r plot_nb_operateurs_detail_012019,echo=F, message=F, warning=F, fig.width=10,fig.height=9, fig.retina=2}
+
+library(treemapify)
+
+ggplot(stats_croiz_superfice_nboperateurdetail %>%
+         filter(an %in% 2019), 
+       aes(area = pct_sup, fill = nb_detail_OPE_couv.f, 
+           subgroup = nb_detail_OPE_couv.f, 
+           label = paste0( round(pct_sup * 100,0), "%"))) +
+  geom_treemap(start = "bottomleft", layout = "fixed") +
+  geom_treemap_text( layout = "fixed", grow = F, reflow = T, colour = "black") +
+  geom_treemap_subgroup_border(layout = "fixed", colour = "black", size =1) +
+  scale_fill_manual(values = c('#000000',"#252525","#525252", "orangered","red","dodgerblue","green", "white"), name ="", guide=guide_legend(reverse=T)) +
+  theme_ipsum_rc() +
+  theme(axis.text.y = element_blank(),
+        legend.text=element_text(size=15),
+        strip.text.x = element_text(face = "bold"),
+        strip.background = element_rect(color = "grey"),
+        panel.grid = element_line(linetype = "longdash")) +
+  labs(
+    title = "Part de la surface couverte en 4G selon le nombre d'opérateurs présents",
+    subtitle = "en France métropolitaine",
+    caption = "Source : Arcep, opérateurs mobiles, juillet 2017/janvier 2019"
+  )
+```
+]
+
+.pull-right[
+<img src="./img/couv4G_nb_detail_operateurs_012019_v4.png" width=600 >
+]
 
 ---
 class: top
@@ -508,7 +616,7 @@ COMM_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max <-
 
 
 .pull-left[
-```{r plot_opemieuxdisant_actuel_comm, echo=F, message=F, warning=F, fig.width=7,fig.height=7, fig.retina=2}
+```{r plot_opemieuxdisant_actuel_comm, echo=F, message=F, warning=F, fig.width=8,fig.height=8, fig.retina=2}
 
 
 # carte choroplèthe 
@@ -538,7 +646,7 @@ ggplot() +
 
 .pull-right[
 
-```{r plot_opemieuxdisant_evol_comm, echo=F, message=F, warning=F, fig.width=7,fig.height=7, fig.retina=2}
+```{r plot_opemieuxdisant_evol_comm, echo=F, message=F, warning=F, fig.width=8,fig.height=8, fig.retina=2}
 ggplot() +
   geom_sf(data = COMMG_COG2016_MET %>% select(INSEE_COM) %>%
             full_join(COMM_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max, 
@@ -729,19 +837,173 @@ x <- girafe_options(x,
 widgetframe::frameWidget(x,width = "100%")
 ```
 
-
 ---
 
-# Diffusion sur le site cartographique OT
+# Evolution de la couverture par région
 
 
-<iframe width="560" height="315" src="http://carto.observatoire-des-territoires.gouv.fr/index.php?indics=couverture_tel.couv4g&serie=2018&view=map56&lang=fr&maponly=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+```{r calcul_reg, echo=F, message=F, warning=F, include = F}
+
+REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max <-
+  COMM_COUVMOB_4G_4OPE_072017.stat.FRMET.indics %>% mutate(an = 2017) %>%
+  rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics %>% mutate(an = 2019) ) %>%
+  rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRDOM.indics %>% mutate(an = 2019)) %>%
+  #rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRDOM.indics) %>%
+  ajout_nivgeo_supracomm(TABLE = . ,
+                         CODE_COMMUNE = "CODE_INSEE",
+                         NIVGEO = "REG",
+                         COG_IN = 2016,
+                         COG_NIVGEO = 2018) %>%
+  group_by(REG,techno, OPE, an) %>%
+  summarise_if(is.numeric, sum) %>%
+  mutate(pct.superficie = superficie / TOT.superficie) %>%
+  ungroup() %>%
+  group_by(REG,techno, an) %>%
+  # indicateur de l'opérateur mieux-disant par techno / par an
+  filter(pct.superficie == max(pct.superficie)) %>%
+  distinct(REG, .keep_all = TRUE) %>%
+  ungroup() %>%
+  select(REG,OPE,techno, an,  superf_tot = TOT.superficie, superf_opemax = superficie ) %>%
+  mutate(pct_superf_opemax = superf_opemax / superf_tot) %>%
+  ajout_libelles_nivgeo(TABLE = .,
+                        NIVGEO_IN ="REG",
+                        COG_NIVGEO = 2018) %>%
+  select(REG, LIB_REG, an ,OPE, pct_superf_opemax, superf_tot) %>%
+  mutate(an = as.numeric(an)) %>%
+  mutate(OPE = factor(OPE, levels = c("ORF","SFR","BYT","FRE") ) ) %>%
+  mutate(OPE = recode(OPE, "ORF" = "Orange", "SFR" = "SFR", "BYT" = "Bytel","FRE" = "Free")) %>%
+  filter(!LIB_REG %in% 'Guyane')
+```
+
+
+```{r plot_reg,echo=F, message=F, warning=F}
+
+
+ggi_slope_reg <-
+ggplot(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+         left_join( REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+                     select(REG, an, pct_superf_opemax) %>%
+                     spread(an , pct_superf_opemax) %>%
+                     rename(pct.superficie.012019 = `2019`,pct.superficie.072017 = `2017`) %>%
+                     mutate(diff.pct.superficie.072017_012019 = pct.superficie.012019 - pct.superficie.072017),
+                    
+                    by = "REG") %>%
+         mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
+                             "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_REG) ,"</b>","<br>",
+                            "en juillet 2017 : ", "<b>",percent(pct.superficie.072017, accuracy = 0.1) ,"</b>" , "<br>",
+                            "en janvier 2019 : ","<b>",percent(pct.superficie.012019, accuracy = 0.1) ,"</b>","</font>") ),
+       aes(x=an, y = pct_superf_opemax, 
+           group = LIB_REG,
+           #label=paste0( round(pct_ind * 100,0), "%") ,
+           color = pct_superf_opemax  ) ) +
+  #geom_line(size = 1.6) +
+  geom_line_interactive(aes(data_id = REG, tooltip = tip ), 
+                        size = 1.1) +
+  
+  # geom_dl(aes(label = paste0( round(pct.superficie * 100,0), "%")), 
+  #         method = list(dl.combine("first.points", "last.points"),
+  #                                             cex = 1.5)) +
+  # geom_text(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2017),
+  #           aes(x=an, y = pct_superf_opemax,label=LIB_REG),
+  #           #position = position_stack(vjust = 0.5),
+  #           #hjust = 2,
+  #           size = 3) +
+  geom_text_repel(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2017),
+                  aes(x=an, y = pct_superf_opemax,
+                      #color = pct_superf_opemax,
+                      label=LIB_REG),
+    size = 2.1,
+    color = "grey30",
+    segment.color = NA,
+    nudge_x      = -0.15,
+    direction    = "y",
+    hjust        = 1,
+    segment.size = 0
+  ) +
+  geom_text(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2017),
+            aes(x=an, y = pct_superf_opemax,
+                #color = pct_superf_opemax,
+                label=paste0( round(pct_superf_opemax * 100,0), "%")),
+            #position = position_stack(vjust = 0.5),
+            hjust = 1,
+            color = "grey30",
+            size = 2) +
+  geom_text(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2019),
+            aes(x=an, y = pct_superf_opemax,
+                #color = pct_superf_opemax,
+                label=paste0( round(pct_superf_opemax * 100,0), "%")),
+            #position = position_stack(vjust = 0.5),
+            hjust = -0.3,
+            color = "grey30",
+            size = 2) +
+  # geom_dl(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2017),
+  #         aes(label = LIB_REG),
+  #         method = list(dl.combine("first.points"),cex = 0.5)) +
+  scale_y_continuous(labels = percent_format(accuracy = 1), name = '') +
+  scale_x_continuous(name = '', limits = c(2016.3,2019), breaks = c(2017,2019), expand=c(0, 0.5)) +
+  scale_color_distiller(palette = "RdBu", direction = 1) +
+ # scale_color_manual(values=c( "#84312D","#FD817F","#9DC86C", "#439B45"), name = 'Type de densité',guide=guide_legend(reverse=F)) +
+  theme_ipsum() +
+  theme(axis.text.y = element_blank(),
+        legend.position = "none",
+        plot.title = element_text(size = 12),
+        strip.text.x = element_text(face = "bold"),
+        strip.background = element_rect(color = "grey"),
+        panel.grid = element_line(linetype = "longdash")) +
+  #coord_flip() +
+  labs(
+    title = "Part de la surface couverte en 4G par l'opérateur mieux-disant",
+    #subtitle = "par région administrative",
+    caption = "Source : Arcep, opérateurs mobiles, juillet 2017/janvier 2019"
+  )
+
+
+
+tooltip_css <- "background-color:#272B30;padding:2px;font-size: 120%;color: white;opacity:0.2"
+#x <- girafe(ggobj = ggi_choro, width = 1, height_svg = 6 )
+x <- girafe(ggobj = ggi_slope_reg, height_svg = 5)
+x <- girafe_options(x, 
+                    opts_tooltip(use_fill = FALSE, offx = 10, offy = -10, use_cursor_pos = TRUE, css = tooltip_css),
+                    opts_hover(css = "stroke:black;r:5pt;"),
+                    opts_selection(type = "none"),
+                    opts_zoom(max = 1),
+                    opts_toolbar(position = "topright", saveaspng = FALSE) )
+
+widgetframe::frameWidget(x, width = "70%", height = 20)
+
+```
 
 ---
 
 # Diffusion sur le site cartographique OT 
 ### test geoclip sans flash
-<iframe width='600' height='600' src='https://statistiques-locales.insee.fr/?view=map1&indics=bdcom.pt_log_rp&serie=2015&lang=fr&iframe=1'></iframe>
+<iframe width='1000' height='600' src='https://statistiques-locales.insee.fr/?view=map1&indics=bdcom.pt_log_rp&serie=2015&lang=fr&iframe=1'></iframe>
+
+
+---
+
+
+# Couverture 4G des équipements publics
+
+<img src="./img/ELIGFIXE_012019_nboperateurs_v1.png" width=500>
+
+
+<img src="./img/ELIGFIXE_012019_tableauequipements_FRTOT_v2.png" width=700>
+
+dans les outre-mer :
+
+<img src="./img/ELIGFIXE_012019_tableauequipements_DOM_v2.png" width=700>
+
+
+
+---
+
+
+# Couverture 4G des équipements publics par région
+
+<img src="./img/ELIGFIXE_012019_tableauequipements_v2.png" height=550>
+
+
 
 ---
 class: top
@@ -758,7 +1020,7 @@ background-position: 5% 95%
 </a>
 
 <a href="http:/observatoire-territoires.github.io/couv4G">
-.white[`r icon::fa("link")` observatoire-territoires.github.io/couv4G]
+.white[`r icon::fa("link")` observatoire-territoires.github.io/couvnum]
 </a>
 
 

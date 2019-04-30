@@ -6,41 +6,44 @@
 }
 */
 
+/*
 body {
  line-height: 1.1em;
 }
 h1, h2, h3  {
  line-height: 1.1em;
 }
-
+*/
 
 .remark-slide-content {
   background-image: url("img/logo-OT-CMJN_carre.png");
   background-position: right 10px top 10px;
 	background-size: 5%;
-	line-height: 1.1em;
+/*	padding: 0px; 
+	margin: 0px; */
+	line-height: 1.2em;;
 	border-bottom: 0px solid  #522D80;
 	box-shadow:  0 55px 0 #fff;
 }
 
 .remark-slide-content h1 {
-    font-size: 55px;
-    padding: 2px; 
-    line-height: 0.7em;
-}
-.remark-slide-content h2 {
     font-size: 45px;
     padding: 2px; 
-    line-height: 0.7em;
+    line-height: 0.1em;
 }
-.remark-slide-content h3 {
+.remark-slide-content h2 {
     font-size: 35px;
     padding: 2px; 
-    line-height: 0.7em;
+    line-height: 0.1em;
+}
+.remark-slide-content h3 {
+    font-size: 25px;
+    padding: 2px;
+    line-height: 0.1em;
 }
 
 .title-slide {
-  background-image: url(img/logo_OT.png), url(img/MCTRCT-horizontal+CGET-logotype.png);
+  background-image: url(img/logo_OT.png), url(img/MCTRCT_CGET.png);
   background-color: #000000;
   /* background-image: url(https://sydney.edu.au/etc/designs/corporate-commons/bower_components/corporate-frontend/dist/assets/img/USydLogo.svg); */
   background-position: 10% 90%, 30% 90%;
@@ -48,11 +51,14 @@ h1, h2, h3  {
 }
 
 /* H1 fonts  */
+
 .title-slide h1 {
   color: #ffffff;
   font-weight: normal;
   font-size: 45px;
-  padding: 20px;
+  /* padding: 2px;  */
+  padding-left: 20px;
+  line-height: 1em;
   text-align: left;
   vertical-align: middle;
   margin-bottom: 18px;
