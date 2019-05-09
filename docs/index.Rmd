@@ -741,6 +741,14 @@ conv_accents <- function(x) {
 
 
 
+EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max <-
+  EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+  select(EPCI, an, pct_superf_opemax) %>%
+  spread(an , pct_superf_opemax) %>%
+  rename(pct.superficie.012019 = `2019`,pct.superficie.072017 = `2017`) %>%
+  mutate(diff.pct.superficie.072017_012019 = pct.superficie.012019 - pct.superficie.072017)
+
+
 
 ggi_choro <-
   ggplot() +
@@ -748,15 +756,17 @@ ggi_choro <-
                         full_join(EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
                                     filter(an %in% '2019'), 
                                   by = c("EPCI" ="EPCI" ) ) %>%
-                        mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
-                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI) ,"</b>","<br>",
-                                            "superficie totale :", format(round(superf_tot / 1000000,-1), nsmall=0, big.mark=" "), " km2","<br>",
-                                            "<b>",percent(pct_superf_opemax, accuracy = 0.1) ,"</b>"," de la superficie est couverte " , "<br>",
-                                            "par ","<i>",OPE ,"</i>"," (operateur mieux-disant sur ce territoire)","</font>") ),
-                      # mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
-                      #                     "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI) ,"</b>","<br>",
-                      #                     "superficie totale :", format(round(superf_tot / 1000000,-1), nsmall=0, big.mark=" "), " km2","<br>",
-                      #                     "<b>",percent(pct_superf_opemax, accuracy = 0.01) ,"</b>"," de la superficie est couverte " , "<br>","</font>") ),
+                        left_join(EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max, by = "EPCI") %>%
+                        # mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
+                        #                     "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI) ,"</b>","<br>",
+                        #                     "superficie totale :", format(round(superf_tot / 1000000,-1), nsmall=0, big.mark=" "), " km2","<br>",
+                        #                     "<b>",percent(pct_superf_opemax, accuracy = 0.1) ,"</b>"," de la superficie est couverte " , "<br>",
+                        #                     "par ","<i>",OPE ,"</i>"," (operateur mieux-disant sur ce territoire)","</font>") ),
+                      mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
+                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI),"</b>","<br>","Part de la surface couverte par l operateur mieux-disant","<br>",
+                                            "janvier 2019 : ", "<b>",percent(pct.superficie.012019, accuracy = 0.1) ,"</b>","<br>",
+                                            "juillet 2017 : ", "<b>",percent(pct.superficie.072017, accuracy = 0.1) ,"</b>",
+                                            "</font>") ),
                       aes(fill=cut(pct_superf_opemax*100, breaks = c(0,20,30,50,80,95,100.01)),
                           tooltip = tip,
                           data_id = EPCI), color = NA) +
@@ -776,14 +786,6 @@ ggi_choro <-
   #coord_sf(crs = 2154, datum = NA)
 
 
-EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max <-
-  EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
-  select(EPCI, an, pct_superf_opemax) %>%
-  spread(an , pct_superf_opemax) %>%
-  rename(pct.superficie.012019 = `2019`,pct.superficie.072017 = `2017`) %>%
-  mutate(diff.pct.superficie.072017_012019 = pct.superficie.012019 - pct.superficie.072017)
-
-
 
 ggi_choro_evol <-
 ggplot() +
@@ -792,17 +794,22 @@ ggplot() +
                                     filter(an %in% '2019'), 
                                   by = c("EPCI" ="EPCI" ) ) %>%
                         left_join(EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max, by = "EPCI") %>%
+                        # mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
+                        #                     "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI) ,"</b>","<br>",
+                        #                     "superficie totale :", format(round(superf_tot / 1000000,-1), nsmall=0, big.mark=" "), " km2","<br>",
+                        #                     "<b>",percent(pct_superf_opemax, accuracy = 0.1) ,"</b>"," de la superficie est couverte " , "<br>",
+                        #                     "par ","<i>",OPE ,"</i>"," (operateur mieux-disant sur ce territoire)","</font>") ),
                         mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
-                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI) ,"</b>","<br>",
-                                            "superficie totale :", format(round(superf_tot / 1000000,-1), nsmall=0, big.mark=" "), " km2","<br>",
-                                            "<b>",percent(pct_superf_opemax, accuracy = 0.1) ,"</b>"," de la superficie est couverte " , "<br>",
-                                            "par ","<i>",OPE ,"</i>"," (operateur mieux-disant sur ce territoire)","</font>") ),
+                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI),"</b>","<br>","Part de la surface couverte par l operateur mieux-disant","<br>",
+                                            "janvier 2019 : ", "<b>",percent(pct.superficie.012019, accuracy = 0.1) ,"</b>","<br>",
+                                            "juillet 2017 : ", "<b>",percent(pct.superficie.072017, accuracy = 0.1) ,"</b>",
+                                            "</font>") ),
                       aes(fill=cut(diff.pct.superficie.072017_012019*100, breaks = c(-100,-50,-25,-15,-7,-3,0,3,7,15,25,50,100)),
                           tooltip = tip,
                           data_id = EPCI), color = NA) +
   geom_sf(data = geo_DEP_poly_FRMETDOM, color = "grey65", fill = NA ,size = 0.05) +
   scale_fill_manual(name = "%",
-                    na.value = "grey",
+                    na.value = "grey", 
                     values = c(rev(colorRampPalette(brewer.pal(8, "Reds"))(6)) ,colorRampPalette(brewer.pal(8, "Greens"))(6) )  , drop = FALSE) +
   guides(fill = guide_legend(reverse=T)) +
   labs(

@@ -6,40 +6,37 @@
 }
 */
 
-/*
 body {
  line-height: 1.1em;
 }
 h1, h2, h3  {
  line-height: 1.1em;
 }
-*/
+
 
 .remark-slide-content {
   background-image: url("img/logo-OT-CMJN_carre.png");
   background-position: right 10px top 10px;
 	background-size: 5%;
-/*	padding: 0px; 
-	margin: 0px; */
-	line-height: 1.2em;;
+	line-height: 1.1em;
 	border-bottom: 0px solid  #522D80;
 	box-shadow:  0 55px 0 #fff;
 }
 
 .remark-slide-content h1 {
-    font-size: 45px;
+    font-size: 55px;
     padding: 2px; 
-    line-height: 0.1em;
+    line-height: 0.7em;
 }
 .remark-slide-content h2 {
-    font-size: 35px;
+    font-size: 45px;
     padding: 2px; 
-    line-height: 0.1em;
+    line-height: 0.7em;
 }
 .remark-slide-content h3 {
-    font-size: 25px;
-    padding: 2px;
-    line-height: 0.1em;
+    font-size: 35px;
+    padding: 2px; 
+    line-height: 0.7em;
 }
 
 .title-slide {
@@ -51,14 +48,11 @@ h1, h2, h3  {
 }
 
 /* H1 fonts  */
-
 .title-slide h1 {
   color: #ffffff;
   font-weight: normal;
   font-size: 45px;
-  /* padding: 2px;  */
-  padding-left: 20px;
-  line-height: 1em;
+  padding: 20px;
   text-align: left;
   vertical-align: middle;
   margin-bottom: 18px;
