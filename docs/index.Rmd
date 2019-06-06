@@ -727,7 +727,7 @@ ggplot(stats_croiz_superfice_nboperateurdetail %>%
   geom_treemap(start = "bottomleft", layout = "fixed") +
   geom_treemap_text( layout = "fixed", grow = F, reflow = T, colour = "white") +
   geom_treemap_subgroup_border(layout = "fixed", colour = "black", size =1) +
-  scale_fill_manual(labels = c('4 opérateurs : 64,7%',"3 opérateurs : 15,1%","2 opérateurs : 6,3%", "Orange uniquement : 5,3%","SFR uniquement : 0,5%", "ByTel uniquement : 0,7%","Free uniquement : 0,5%", "Zone blanche : 7,0%"),
+  scale_fill_manual(labels = c('4 opérateurs : 78,3%',"3 opérateurs : 14,5%","2 opérateurs : 4,0%", "Orange uniquement : 1,8%","SFR uniquement : 0,1%", "ByTel uniquement : 0,1%","Free uniquement : 0,0%", "Zone blanche : 1,2%"),
                     values = c('#000000',"#252525","#525252", "orangered","red","dodgerblue","green", "white"), name ="", guide=guide_legend(reverse=T)) +
   theme_ipsum() +
   theme(axis.text.y = element_blank(),
