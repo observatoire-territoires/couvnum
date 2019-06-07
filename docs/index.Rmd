@@ -51,8 +51,6 @@ superficie_COUVMOB_2GBCTBC_4OPE_BINOMES_012019.FRMET <- fread("./data/superficie
 
 COMM_BDA16_DOM_4G_tous_OPE_NA_012019 <- fread("./data/COMM_BDA16_DOM_4G_tous_OPE_NA_012019.csv")
 
-geo_DEP_poly_FRMETDOM <- st_read("./temp/geo_DEP_poly_FRMETDOM.geojson")
-geo_EPCI_poly_FRMETDOM <- st_read("./temp/geo_EPCI_poly_FRMETDOM.geojson")
 
 ```
 
@@ -86,28 +84,30 @@ COMMG_COG2016_METDOM <- COMMG_COG2016_MET %>%
   rbind(COMMG_DROM %>% select(INSEE_COM) )
 
 
-# ## mailles supracommunales
-# library(migR)
-# 
-# geo_DEP_poly_FRMETDOM <-
-#   creation_carto_supracomm(CARTO_COMM = COMMG_COG2016_METDOM,
-#                            CODE_COMMUNE = "INSEE_COM",
-#                            COG_IN = 2016,
-#                            COG_NIVGEO = 2018,
-#                            NIVGEO = "DEP",
-#                            FORMAT = "poly",
-#                            SG = 0.02)
-# 
-# geo_EPCI_poly_FRMETDOM <-
-#   creation_carto_supracomm(CARTO_COMM = COMMG_COG2016_METDOM,
-#                            CODE_COMMUNE = "INSEE_COM",
-#                            COG_IN = 2016,
-#                            COG_NIVGEO = 2018,
-#                            NIVGEO = "EPCI",
-#                            FORMAT = "poly",
-#                            SG = 0.02)
+## mailles supracommunales
+library(migR)
+
+geo_DEP_poly_FRMETDOM <-
+  creation_carto_supracomm(CARTO_COMM = COMMG_COG2016_METDOM,
+                           CODE_COMMUNE = "INSEE_COM",
+                           COG_IN = 2016,
+                           COG_NIVGEO = 2018,
+                           NIVGEO = "DEP",
+                           FORMAT = "poly",
+                           SG = 0.02)
+
+geo_EPCI_poly_FRMETDOM <-
+  creation_carto_supracomm(CARTO_COMM = COMMG_COG2016_METDOM,
+                           CODE_COMMUNE = "INSEE_COM",
+                           COG_IN = 2016,
+                           COG_NIVGEO = 2018,
+                           NIVGEO = "EPCI",
+                           FORMAT = "poly",
+                           SG = 0.02)
 
 ```
+
+
 
 
 
@@ -764,7 +764,7 @@ ggplot(stats_croiz_superfice_nboperateurdetail %>%
   geom_treemap(start = "bottomleft", layout = "fixed") +
   geom_treemap_text( layout = "fixed", grow = F, reflow = T, colour = "black") +
   geom_treemap_subgroup_border(layout = "fixed", colour = "black", size =1) +
-  scale_fill_manual(labels = c('4 opérateurs : 64,7%',"3 opérateurs : 15,1%","2 opérateurs : 6,3%", "Orange uniquement : 5,3%","SFR uniquement : 0,5%", "ByTel uniquement : 0,7%","Free uniquement : 0,5%", "Zone blanche : 7,0%"), values = c('white',"white","white", "orangered","red","dodgerblue","green", "white"), name ="", guide=guide_legend(reverse=T)) +
+  scale_fill_manual(labels = c('4 opérateurs : 78,3%',"3 opérateurs : 14,5%","2 opérateurs : 4,0%", "Orange uniquement : 1,8%","SFR uniquement : 0,1%", "ByTel uniquement : 0,1%","Free uniquement : 0,0%", "Zone blanche : 1,2%"), values = c('white',"white","white", "orangered","red","dodgerblue","green", "white"), name ="", guide=guide_legend(reverse=T)) +
   theme_ipsum() +
   theme(axis.text.y = element_blank(),
         legend.text=element_text(size=15),
@@ -1030,7 +1030,7 @@ ggplot(data=GRIDENS_4G_indics ,
 
 ---
 
-# Couverture de l'opérateur mieux-disant
+# Couverture par a minima deux opérateurs
 
 
 ```{r calcul_opemieuxdisant_comm, echo=F, message=F, warning=F, include = F, eval=TRUE}
@@ -1038,27 +1038,29 @@ ggplot(data=GRIDENS_4G_indics ,
 ################################
 # indicateur part de l'opérateur 4G mieux-disant par commune
 
-COMM_COUVMOB_4G_4OPE_012019.stat.FR.indics.max <-
+COMM_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 <-
   COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics %>%
   rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRDOM.indics) %>%
   group_by(CODE_INSEE) %>%
-  filter(pct.superficie == max(pct.superficie)) %>%
-  distinct(CODE_INSEE, .keep_all = TRUE)
+  arrange(desc(pct.superficie)) %>%
+  top_n(2) %>%
+  filter(pct.superficie == min(pct.superficie)) %>%
+  distinct(CODE_INSEE, techno, pct.superficie, .keep_all = TRUE)
 
 
-
-
-COMM_COUVMOB_4G_4OPE_072017.stat.FR.indics.max <-
+COMM_COUVMOB_4G_4OPE_072017.stat.FR.indics.max2 <-
   COMM_COUVMOB_4G_4OPE_072017.stat.FRMET.indics %>%
   group_by(CODE_INSEE) %>%
-  filter(pct.superficie== max(pct.superficie)) %>%
-  distinct(CODE_INSEE, .keep_all = TRUE)
+  arrange(desc(pct.superficie)) %>%
+  top_n(2) %>%
+  filter(pct.superficie == min(pct.superficie)) %>%
+  distinct(CODE_INSEE, techno, pct.superficie, .keep_all = TRUE)
 
 
-COMM_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max <-
-  COMM_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+COMM_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max2 <-
+  COMM_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>%
   rename(pct.superficie.012019 = pct.superficie, superficie.012019 = superficie, OPE.072018 = OPE) %>%
-  left_join(COMM_COUVMOB_4G_4OPE_072017.stat.FR.indics.max %>%
+  left_join(COMM_COUVMOB_4G_4OPE_072017.stat.FR.indics.max2 %>%
               select(CODE_INSEE,  OPE.072017 = OPE, pct.superficie.072017 = pct.superficie, superficie.072017 = superficie),
             by = c("CODE_INSEE")) %>%
   mutate(diff.pct.superficie.072017_012019 = pct.superficie.012019 - pct.superficie.072017)
@@ -1074,7 +1076,7 @@ COMM_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max <-
 # carte choroplèthe 
 ggplot() +
   geom_sf(data = COMMG_COG2016_METDOM %>% 
-            full_join(COMM_COUVMOB_4G_4OPE_012019.stat.FR.indics.max , 
+            full_join(COMM_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 , 
                       by = c("INSEE_COM" ="CODE_INSEE" ) ) ,
           aes(fill=cut(pct.superficie*100, breaks = c(0,20,30,50,80,95,100))), color = NA) +
   geom_sf(data = geo_DEP_poly_FRMETDOM, color = "grey65", fill = NA ,size = 0.05) +
@@ -1082,8 +1084,8 @@ ggplot() +
   guides(fill = guide_legend(reverse=T)) +
   labs(
     title = "Part de la surface couverte en 4G",
-    subtitle = "par l'opérateur mieux-disant, par commune",
-    caption = "Source : Arcep, opérateurs mobiles, juillet 2018"
+    subtitle = "par a minima deux opérateurs, par commune",
+    caption = "Source : Arcep, opérateurs mobiles, janvier 2019"
   ) +   
   theme_ipsum() + 
   theme(legend.position = "right",
@@ -1101,14 +1103,14 @@ ggplot() +
 ```{r plot_opemieuxdisant_evol_comm,eval=T, echo=F, message=F, warning=F, fig.width=8,fig.height=7.5, fig.retina=2}
 ggplot() +
   geom_sf(data = COMMG_COG2016_MET %>% select(INSEE_COM) %>%
-            full_join(COMM_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max, 
+            full_join(COMM_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max2, 
                       by = c("INSEE_COM" ="CODE_INSEE" ) ),  #%>%
           aes(fill=cut(diff.pct.superficie.072017_012019*100, breaks = c(-100,-50,-25,-15,-7,-3,0,3,7,15,25,50,100))), color = NA) +
   geom_sf(data = geo_DEP_poly_FRMETDOM, color = "grey65", fill = NA ,size = 0.05) +
   scale_fill_manual(name = "%", values = c(rev(colorRampPalette(brewer.pal(8, "Reds"))(6)) ,colorRampPalette(brewer.pal(8, "Greens"))(6) )  , drop = FALSE) +
   guides(fill = guide_legend(reverse=T)) +
   labs(
-    title = "Evolution de la part de la surface couverte en 4G par l'opérateur mieux-disant",
+    title = "Evolution de la part de la surface couverte en 4G par a minima deux opérateurs",
     subtitle = "Entre juillet 2017 et janvier 2019, par commune",
     caption = "Source : Arcep, opérateurs mobiles, janvier 2019"
   ) +   
@@ -1117,19 +1119,19 @@ ggplot() +
         axis.line=element_blank(),
         axis.title=element_blank(),
         axis.text=element_blank() )+
-  coord_sf(crs = st_crs(2154), datum = NA)
+  coord_sf(crs = 2154, datum = NA)
 ```
 ]
 
 ---
-# Opérateur mieux-disant par EPCI
+# Couverture par a minima deux opérateurs, par EPCI
 
 
 ```{r calcul_epci_mieuxdisant, include=FALSE, eval=TRUE}
 
 
 # stats ope mieux-disant par EPCI
-EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max <-
+EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 <-
   COMM_COUVMOB_4G_4OPE_072017.stat.FRMET.indics %>% mutate(an = 2017) %>%
   rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics %>% mutate(an = 2019) ) %>%
   rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRDOM.indics %>% mutate(an = 2019)) %>%
@@ -1144,9 +1146,10 @@ EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max <-
   mutate(pct.superficie = superficie / TOT.superficie) %>%
   ungroup() %>%
   group_by(EPCI,techno, an) %>%
-  # indicateur de l'opérateur mieux-disant par techno / par an
-  filter(pct.superficie == max(pct.superficie)) %>%
-  distinct(EPCI, .keep_all = TRUE) %>%
+  arrange(desc(pct.superficie)) %>%
+  top_n(2) %>%
+  filter(pct.superficie == min(pct.superficie)) %>%
+  distinct(EPCI, techno, pct.superficie, .keep_all = TRUE) %>%
   ungroup() %>%
   select(EPCI,OPE,techno, an,  superf_tot = TOT.superficie, superf_opemax = superficie ) %>%
   mutate(pct_superf_opemax = superf_opemax / superf_tot) %>%
@@ -1193,8 +1196,8 @@ conv_accents <- function(x) {
 
 
 
-EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max <-
-  EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max2 <-
+  EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>%
   select(EPCI, an, pct_superf_opemax) %>%
   spread(an , pct_superf_opemax) %>%
   rename(pct.superficie.012019 = `2019`,pct.superficie.072017 = `2017`) %>%
@@ -1202,20 +1205,21 @@ EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max <-
 
 
 
+
 ggi_choro <-
   ggplot() +
   geom_sf_interactive(data = geo_EPCI_poly_FRMETDOM %>% 
-                        full_join(EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+                        full_join(EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>%
                                     filter(an %in% '2019'), 
                                   by = c("EPCI" ="EPCI" ) ) %>%
-                        left_join(EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max, by = "EPCI") %>%
+                        left_join(EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max2, by = "EPCI") %>%
                         # mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
                         #                     "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI) ,"</b>","<br>",
                         #                     "superficie totale :", format(round(superf_tot / 1000000,-1), nsmall=0, big.mark=" "), " km2","<br>",
                         #                     "<b>",percent(pct_superf_opemax, accuracy = 0.1) ,"</b>"," de la superficie est couverte " , "<br>",
                         #                     "par ","<i>",OPE ,"</i>"," (operateur mieux-disant sur ce territoire)","</font>") ),
                       mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
-                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI),"</b>","<br>","Part de la surface couverte par l operateur mieux-disant","<br>",
+                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI),"</b>","<br>","Part de la surface couverte par a minima deux operateurs","<br>",
                                             "janvier 2019 : ", "<b>",percent(pct.superficie.012019, accuracy = 0.1) ,"</b>","<br>",
                                             "juillet 2017 : ", "<b>",percent(pct.superficie.072017, accuracy = 0.1) ,"</b>",
                                             "</font>") ),
@@ -1227,32 +1231,32 @@ ggi_choro <-
   guides(fill = guide_legend(reverse=T)) +
   labs(
     title = "Part de la surface couverte en 4G",
-    subtitle = "par l'opérateur mieux-disant, par commune",
+    subtitle = "par a minima deux opérateurs, par commune",
     caption = "Source : Arcep, opérateurs mobiles, janvier 2019"
   ) +   
   theme_ipsum() + 
   theme(legend.position = "right",
         axis.line=element_blank(),
         axis.title=element_blank(),
-        axis.text=element_blank() ) #+
-  #coord_sf(crs = 2154, datum = NA)
+        axis.text=element_blank() ) +
+  coord_sf(crs = 2154, datum =NA)
 
 
 
 ggi_choro_evol <-
 ggplot() +
   geom_sf_interactive(data = geo_EPCI_poly_FRMETDOM %>% 
-                        full_join(EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+                        full_join(EPCI_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>%
                                     filter(an %in% '2019'), 
                                   by = c("EPCI" ="EPCI" ) ) %>%
-                        left_join(EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max, by = "EPCI") %>%
+                        left_join(EPCI_COUVMOB_4G_4OPE_EVOL.stat.FRMET.indics.max2, by = "EPCI") %>%
                         # mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
                         #                     "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI) ,"</b>","<br>",
                         #                     "superficie totale :", format(round(superf_tot / 1000000,-1), nsmall=0, big.mark=" "), " km2","<br>",
                         #                     "<b>",percent(pct_superf_opemax, accuracy = 0.1) ,"</b>"," de la superficie est couverte " , "<br>",
                         #                     "par ","<i>",OPE ,"</i>"," (operateur mieux-disant sur ce territoire)","</font>") ),
                         mutate(tip = paste0("<style> div.leaflet-popup-content {width:auto!important;}</style>",
-                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI),"</b>","<br>","Part de la surface couverte par l operateur mieux-disant","<br>",
+                                            "<font size=2.5 color=white family=Roboto>","<b>",conv_accents(LIB_EPCI),"</b>","<br>","Part de la surface couverte par a minima deux operateurs","<br>",
                                             "janvier 2019 : ", "<b>",percent(pct.superficie.012019, accuracy = 0.1) ,"</b>","<br>",
                                             "juillet 2017 : ", "<b>",percent(pct.superficie.072017, accuracy = 0.1) ,"</b>",
                                             "</font>") ),
@@ -1265,16 +1269,17 @@ ggplot() +
                     values = c(rev(colorRampPalette(brewer.pal(8, "Reds"))(6)) ,colorRampPalette(brewer.pal(8, "Greens"))(6) )  , drop = FALSE) +
   guides(fill = guide_legend(reverse=T)) +
   labs(
-    title = "Evolution de la part de la surface couverte en 4G par l'opérateur mieux-disant",
-    subtitle = "Entre juillet 2017 et janvier 2019, par commune",
+    title = "Evolution de la part de la surface couverte en 4G par par a minima deux opérateurs",
+    subtitle = "Entre juillet 2017 et janvier 2019, par EPCI",
     caption = "Source : Arcep, opérateurs mobiles, janvier 2019"
   ) +   
   theme_ipsum() + 
   theme(legend.position = "right",
         axis.line=element_blank(),
         axis.title=element_blank(),
-        axis.text=element_blank() ) #+
-  #coord_sf(crs = 2154, datum = NA)
+        axis.text=element_blank() ) +
+  coord_sf(crs = 2154, datum = NA)
+
 
 
 
@@ -1303,7 +1308,7 @@ widgetframe::frameWidget(x,width = "100%")
 
 ```{r calcul_reg, echo=F, message=F, warning=F, include = F}
 
-REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max <-
+REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 <-
   COMM_COUVMOB_4G_4OPE_072017.stat.FRMET.indics %>% mutate(an = 2017) %>%
   rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics %>% mutate(an = 2019) ) %>%
   rbind.data.frame(COMM_COUVMOB_4G_4OPE_012019.stat.FRDOM.indics %>% mutate(an = 2019)) %>%
@@ -1318,9 +1323,10 @@ REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max <-
   mutate(pct.superficie = superficie / TOT.superficie) %>%
   ungroup() %>%
   group_by(REG,techno, an) %>%
-  # indicateur de l'opérateur mieux-disant par techno / par an
-  filter(pct.superficie == max(pct.superficie)) %>%
-  distinct(REG, .keep_all = TRUE) %>%
+  arrange(desc(pct.superficie)) %>%
+  top_n(2) %>%
+  filter(pct.superficie == min(pct.superficie)) %>%
+  distinct(REG, techno, pct.superficie, .keep_all = TRUE) %>%
   ungroup() %>%
   select(REG,OPE,techno, an,  superf_tot = TOT.superficie, superf_opemax = superficie ) %>%
   mutate(pct_superf_opemax = superf_opemax / superf_tot) %>%
@@ -1339,8 +1345,8 @@ REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max <-
 
 
 ggi_slope_reg <-
-ggplot(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
-         left_join( REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
+ggplot(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>%
+         left_join( REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>%
                      select(REG, an, pct_superf_opemax) %>%
                      spread(an , pct_superf_opemax) %>%
                      rename(pct.superficie.012019 = `2019`,pct.superficie.072017 = `2017`) %>%
@@ -1367,7 +1373,7 @@ ggplot(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
   #           #position = position_stack(vjust = 0.5),
   #           #hjust = 2,
   #           size = 3) +
-  geom_text_repel(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2017),
+  geom_text_repel(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>% filter(an ==2017),
                   aes(x=an, y = pct_superf_opemax,
                       #color = pct_superf_opemax,
                       label=LIB_REG),
@@ -1379,7 +1385,7 @@ ggplot(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
     hjust        = 1,
     segment.size = 0
   ) +
-  geom_text(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2017),
+  geom_text(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>% filter(an ==2017),
             aes(x=an, y = pct_superf_opemax,
                 #color = pct_superf_opemax,
                 label=paste0( round(pct_superf_opemax * 100,0), "%")),
@@ -1387,7 +1393,7 @@ ggplot(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
             hjust = 1,
             color = "grey30",
             size = 2) +
-  geom_text(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>% filter(an ==2019),
+  geom_text(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 %>% filter(an ==2019),
             aes(x=an, y = pct_superf_opemax,
                 #color = pct_superf_opemax,
                 label=paste0( round(pct_superf_opemax * 100,0), "%")),
@@ -1411,7 +1417,7 @@ ggplot(data=REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max %>%
         panel.grid = element_line(linetype = "longdash")) +
   #coord_flip() +
   labs(
-    title = "Part de la surface couverte en 4G par l'opérateur mieux-disant",
+    title = "Part de la surface couverte en 4G par a minima deux opérateurs",
     #subtitle = "par région administrative",
     caption = "Source : Arcep, opérateurs mobiles, juillet 2017/janvier 2019"
   )
