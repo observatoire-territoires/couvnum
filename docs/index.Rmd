@@ -139,7 +139,7 @@ Couches cartographiques d’emprise théorique de chaque opérateur mobile issue
 <img src="./img/ecran_arcep_monreseaumobile.png" height="100px" />
 ]
 
-- 2G : qualité de service TBC/BC/CL/NA.
+- 2G : niveau de couverture TBC/BC/CL/NA.
 - 4G : binaire oui-non
 
 Diffusion : ~ chaque trimestre depuis juillet 2017.
@@ -1341,7 +1341,7 @@ REG_COUVMOB_4G_4OPE_012019.stat.FR.indics.max2 <-
 ```
 
 
-```{r plot_reg,echo=F, message=F, warning=F, fig.height=5}
+```{r plot_reg,echo=F, message=F, warning=F, fig.height=4.5}
 
 
 ggi_slope_reg <-
