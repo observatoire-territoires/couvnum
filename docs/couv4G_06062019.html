@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Couverture 4G</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="CGET / Observatoire des territoires" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="ultra.css" type="text/css" />
+    <link rel="stylesheet" href="animate.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Couverture 4G
+## Exploration des cartographies mises en ligne par l’ARCEP
+### CGET / Observatoire des territoires
+### Mai 2019
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Sources
+
+
+.pull-left[
+Couches cartographiques d’emprise théorique de chaque opérateur mobile issues de l'**Arcep** sur  [data.gouv.fr](https://www.data.gouv.fr/fr/datasets/mon-reseau-mobile/). 
+]
+.pull-right[
+&lt;img src="./img/ecran_arcep_monreseaumobile.png" height="100px" /&gt;
+]
+
+- 2G : qualité de service TBC/BC/CL/NA.
+- 4G : binaire oui-non
+
+Diffusion : ~ chaque trimestre depuis juillet 2017.
+
+--
+
+-&gt; Traitements géomatiques pour calcul de superficie couverte par commune et toutes les mailles supra-communales.
+
+
+```r
+head(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics)
+```
+
+```
+##    CODE_INSEE techno OPE superficie TOT.superficie pct.superficie
+## 1:      01001     4G BYT   13760952       15619934      0.8809866
+## 2:      01001     4G FRE   11559911       15619934      0.7400742
+## 3:      01001     4G ORF   15596913       15619934      0.9985261
+## 4:      01001     4G SFR   14490220       15619934      0.9276748
+## 5:      01002     4G BYT    6402916        9175479      0.6978290
+## 6:      01002     4G FRE    4712928        9175479      0.5136438
+```
+
+
+---
+# Evolution des emprises 4G des opérateurs
+
+
+.pull-left[
+- &lt;img src="./img/evol_couv4G_BYT_072017_012019_v2.png" height="220px"  /&gt;
+ &lt;img src="./img/evol_couv4G_ORF_072017_012019_v2.png" height="220px"  /&gt;
+- &lt;img src="./img/evol_couv4G_SFR_072017_012019_v2.png" height="220px"  /&gt;
+&lt;img src="./img/evol_couv4G_FREE_072017_012019_v2.png" height="220px" /&gt;
+]
+.pull-right[
+
+&lt;img src="couv4G_06062019_files/figure-html/evol_couv_TOT_OPE-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+# Zone noire / grise / blanche
+### 4G - juillet 2017
+
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_s_072017-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_operateurs_072017_v4.png" width=450 &gt;
+]
+
+---
+# Zone noire / grise / blanche
+### 4G - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_s_012019-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_operateurs_012019_v4.png" width=450&gt;
+]
+
+
+---
+# Zone noire, grise et blanche par région
+
+
+
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_s_reg_012019-1.png" width="936" /&gt;
+
+
+
+---
+# Zones exclusives
+### 4G - juillet 2017
+
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_072017-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_detail_operateurs_072017_v4.png" width=450 &gt;
+]
+
+
+
+
+---
+# Zones exclusives
+### 4G - juillet 2017
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_072017_vs-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_detail_operateurs_select_072017_v4.png" width=450 &gt;
+]
+
+
+
+
+---
+# Zones exclusives
+### 4G - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_012019-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_detail_operateurs_012019_v4.png" width=450 &gt;
+]
+
+---
+# Zones exclusives
+### 4G - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_012019_vs-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_detail_operateurs_select_012019_v4.png" width=450 &gt;
+]
+
+
+---
+exclude: true
+# Zones exclusives en binomes
+### 4G - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_binomes_operateurs_detail_012019-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_select_binomes_012019_v2.png" width=450 &gt;
+]
+
+
+
+
+---
+exclude: true
+# Couverture théorique de la population
+### 4G - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_012019_vs_pop-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_detail_operateurs_select_012019_v4.png" width=450 &gt;
+]
+
+---
+# Zones exclusives
+### 3G - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_3G_012019-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv3G_nb_detail_operateurs_012019_v2.png" width=450 &gt;
+]
+
+---
+# Zones exclusives
+### 3G - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_3G_012019_vs-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv3G_nb_detail_operateurs_select_012019_v2.png" width=450 &gt;
+]
+
+
+---
+# Zones exclusives
+### 2G (uniquement bonne ou très bonne couverture) - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_2G_012019-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv2G_nb_detail_operateurs_012019_v4.png" width=450 &gt;
+]
+
+
+
+---
+# Zones exclusives
+### 2G (uniquement bonne ou très bonne couverture) - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_nb_operateurs_detail_2G_012019_vs-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv2G_nb_detail_operateurs_select_012019_v4.png" width=450 &gt;
+]
+
+
+---
+# Zones exclusives en binomes
+### 2G (uniquement bonne ou très bonne couverture) - janvier 2019
+
+.pull-left[
+&lt;img src="couv4G_06062019_files/figure-html/plot_binomes_operateurs_detail_012019_2G-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv2G_select_binomes_012019_v2.png" width=450 &gt;
+]
+
+---
+class: top
+background-image: url(./img/carte7_grille_densite-01.jpg)
+background-size: 260px
+background-position: 88% 50%
+# Analyse par la grille de densité
+
+
+
+
+
+&lt;img src="couv4G_06062019_files/figure-html/plot_grid_dens-1.png" width="720" /&gt;
+
+
+---
+
+# Couverture par a minima deux opérateurs
+
+
+
+
+
+.pull-left[
+
+]
+
+.pull-right[
+
+
+]
+
+---
+# Couverture par a minima deux opérateurs, par EPCI
+
+
+
+
+
+---
+
+
+# Couverture 4G des équipements publics par région
+
+&lt;img src="./img/ELIGFIXE_012019_tableauequipements_v2.png" height=500&gt;
+
+
+
+---
+class: top
+background-image: url(img/logo_OT.png)
+background-size: 260px
+background-position: 5% 95%
+
+# Nous contacter
+
+.pull-right[.pull-down[
+
+&lt;a href="mailto:observatoire@cget.gouv.fr"&gt;
+.white[<i class="fas  fa-paper-plane "></i> observatoire@cget.gouv.fr]
+&lt;/a&gt;
+
+&lt;a href="http:/observatoire-territoires.github.io/couv4G"&gt;
+.white[<i class="fas  fa-link "></i> observatoire-territoires.github.io/couvnum]
+&lt;/a&gt;
+
+
+&lt;a href="http://github.com/observatoire-territoires"&gt;
+.white[<i class="fab  fa-github "></i> @observatoire-territoires]
+&lt;/a&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+]]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": null,
+"scroll": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
