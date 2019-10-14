@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>Couverture mobile</title>
+    <title>Couverture 4G</title>
     <meta charset="utf-8" />
     <meta name="author" content="CGET / Observatoire des territoires" />
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
@@ -16,14 +16,12 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Couverture mobile
+# Couverture 4G
 ## Exploration des cartographies mises en ligne par l’ARCEP
 ### CGET / Observatoire des territoires
-### Mai 2019
+### Octobre 2019
 
 ---
-
-
 
 
 
@@ -49,7 +47,7 @@ Couches cartographiques d’emprise théorique de chaque opérateur mobile issue
 &lt;img src="./img/ecran_arcep_monreseaumobile.png" height="100px" /&gt;
 ]
 
-- 2G : niveau de couverture TBC/BC/CL/NA.
+- 2G : qualité de service TBC/BC/CL/NA.
 - 4G : binaire oui-non
 
 Diffusion : ~ chaque trimestre depuis juillet 2017.
@@ -60,17 +58,17 @@ Diffusion : ~ chaque trimestre depuis juillet 2017.
 
 
 ```r
-head(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics)
+head(COMM_COUVMOB_4G_4OPE_062019.stat.FRMET.indics)
 ```
 
 ```
 ##    CODE_INSEE techno OPE superficie TOT.superficie pct.superficie
-## 1:      01001     4G BYT   13760952       15619934      0.8809866
-## 2:      01001     4G FRE   11559911       15619934      0.7400742
-## 3:      01001     4G ORF   15596913       15619934      0.9985261
-## 4:      01001     4G SFR   14490220       15619934      0.9276748
-## 5:      01002     4G BYT    6402916        9175479      0.6978290
-## 6:      01002     4G FRE    4712928        9175479      0.5136438
+## 1:      01001     4G BYT   13378895       15619934      0.8565269
+## 2:      01001     4G FRE   10723764       15619934      0.6865435
+## 3:      01001     4G ORF   15611432       15619934      0.9994557
+## 4:      01001     4G SFR   14686891       15619934      0.9402659
+## 5:      01002     4G BYT    6055044        9175479      0.6599159
+## 6:      01002     4G FRE    4705880        9175479      0.5128756
 ```
 
 
@@ -79,10 +77,10 @@ head(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics)
 
 
 .pull-left[
-- &lt;img src="./img/evol_couv4G_BYT_072017_012019_v2.png" height="220px"  /&gt;
- &lt;img src="./img/evol_couv4G_ORF_072017_012019_v2.png" height="220px"  /&gt;
-- &lt;img src="./img/evol_couv4G_SFR_072017_012019_v2.png" height="220px"  /&gt;
-&lt;img src="./img/evol_couv4G_FREE_072017_012019_v2.png" height="220px" /&gt;
+- &lt;img src="./img/evol_couv4G_BYT_072017_062019_v4.png" height="200px"  /&gt;
+ &lt;img src="./img/evol_couv4G_ORF_072017_062019_v4.png" height="200px"  /&gt;
+- &lt;img src="./img/evol_couv4G_SFR_072017_062019_v4.png" height="200px"  /&gt;
+&lt;img src="./img/evol_couv4G_FREE_072017_062019_v4.png" height="200px" /&gt;
 ]
 .pull-right[
 
@@ -106,14 +104,14 @@ head(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics)
 
 ---
 # Zone noire / grise / blanche
-### 4G - janvier 2019
+### 4G - juin 2019
 
 .pull-left[
 &lt;img src="index_files/figure-html/plot_nb_operateurs_s_012019-1.png" width="720" /&gt;
 ]
 
 .pull-right[
-&lt;img src="./img/couv4G_nb_operateurs_012019_v4.png" width=450&gt;
+&lt;img src="./img/couv4G_nb_operateurs_062019_v4.png" width=450&gt;
 ]
 
 
@@ -159,26 +157,80 @@ head(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics)
 
 ---
 # Zones exclusives
-### 4G - janvier 2019
+### 4G - juin 2019
 
 .pull-left[
-&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_012019-1.png" width="720" /&gt;
+&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_062019-1.png" width="720" /&gt;
 ]
 
 .pull-right[
-&lt;img src="./img/couv4G_nb_detail_operateurs_012019_v4.png" width=450 &gt;
+&lt;img src="./img/couv4G_nb_detail_operateurs_062019_v4.png" width=450 &gt;
 ]
 
 ---
 # Zones exclusives
+### 4G - juin 2019
+
+.pull-left[
+&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_062019_vs-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_nb_detail_operateurs_select_062019_v4.png" width=450 &gt;
+]
+
+
+---
+exclude: true
+# Zones exclusives en binomes
 ### 4G - janvier 2019
 
 .pull-left[
-&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_012019_vs-1.png" width="720" /&gt;
+&lt;img src="index_files/figure-html/plot_binomes_operateurs_detail_012019-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv4G_select_binomes_012019_v2.png" width=450 &gt;
+]
+
+
+
+
+---
+exclude: true
+# Couverture théorique de la population
+### 4G - janvier 2019
+
+.pull-left[
+&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_012019_vs_pop-1.png" width="720" /&gt;
 ]
 
 .pull-right[
 &lt;img src="./img/couv4G_nb_detail_operateurs_select_012019_v4.png" width=450 &gt;
+]
+
+---
+# Zones exclusives
+### 3G - janvier 2019
+
+.pull-left[
+&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_3G_012019-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv3G_nb_detail_operateurs_012019_v2.png" width=450 &gt;
+]
+
+---
+# Zones exclusives
+### 3G - janvier 2019
+
+.pull-left[
+&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_3G_012019_vs-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv3G_nb_detail_operateurs_select_012019_v2.png" width=450 &gt;
 ]
 
 
@@ -195,6 +247,31 @@ head(COMM_COUVMOB_4G_4OPE_012019.stat.FRMET.indics)
 ]
 
 
+
+---
+# Zones exclusives
+### 2G (uniquement bonne ou très bonne couverture) - janvier 2019
+
+.pull-left[
+&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_2G_012019_vs-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv2G_nb_detail_operateurs_select_012019_v4.png" width=450 &gt;
+]
+
+
+---
+# Zones exclusives en binomes
+### 2G (uniquement bonne ou très bonne couverture) - janvier 2019
+
+.pull-left[
+&lt;img src="index_files/figure-html/plot_binomes_operateurs_detail_012019_2G-1.png" width="720" /&gt;
+]
+
+.pull-right[
+&lt;img src="./img/couv2G_select_binomes_012019_v2.png" width=450 &gt;
+]
 
 ---
 class: top
@@ -219,12 +296,25 @@ background-position: 88% 50%
 
 
 .pull-left[
-&lt;img src="index_files/figure-html/plot_opemieuxdisant_actuel_comm-1.png" width="576" /&gt;
+&lt;img src="index_files/figure-html/plot_opemieuxdisant_actuel_comm-1.png" width="648" /&gt;
 ]
 
 .pull-right[
 
-&lt;img src="index_files/figure-html/plot_opemieuxdisant_evol_comm-1.png" width="576" /&gt;
+&lt;img src="index_files/figure-html/plot_opemieuxdisant_evol_comm-1.png" width="648" /&gt;
+]
+
+---
+# Couverture par a minima deux opérateurs
+
+
+.pull-left[
+&lt;img src="index_files/figure-html/plot_opemieuxdisant_evol_comm_20172018-1.png" width="648" /&gt;
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/plot_opemieuxdisant_evol_comm_20182019-1.png" width="648" /&gt;
 ]
 
 ---
@@ -233,25 +323,15 @@ background-position: 88% 50%
 
 
 
-<div id="htmlwidget-d2a7608315428c696a55" style="width:100%;height:360px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d2a7608315428c696a55">{"x":{"url":"index_files/figure-html//widgets/widget_plot_opemieuxdisant_epci_evol.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 
+<div id="htmlwidget-18878ac927b11f780f15" style="width:100%;height:360px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-18878ac927b11f780f15">{"x":{"url":"index_files/figure-html//widgets/widget_plot_opemieuxdisant_epci_evol.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 ---
 
-# Evolution de la couverture par région
 
+# Couverture 4G des équipements publics par région
 
-
-
-
-<div id="htmlwidget-7ac54233fb2982815b86" style="width:70%;height:5px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7ac54233fb2982815b86">{"x":{"url":"index_files/figure-html//widgets/widget_plot_reg.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
-
----
-
-# Diffusion sur le site cartographique OT 
-
-&lt;iframe width='700' height='500' src='https://www.observatoire-des-territoires.gouv.fr/outils/cartographie-interactive/?view=map26&amp;indics=couverture_tel.couv4g&amp;serie=2019&amp;lang=fr&amp;iframe=1'&gt;&lt;/iframe&gt;
+&lt;img src="./img/ELIGFIXE_012019_tableauequipements_v2.png" height=500&gt;
 
 
 
@@ -281,104 +361,6 @@ background-position: 5% 95%
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
 
 ]]
-
----
-class: top
-
-# Annexes
-
-
-
----
-# Zones exclusives
-### 3G - janvier 2019
-
-.pull-left[
-&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_3G_012019-1.png" width="720" /&gt;
-]
-
-.pull-right[
-&lt;img src="./img/couv3G_nb_detail_operateurs_012019_v2.png" width=450 &gt;
-]
-
----
-# Zones exclusives
-### 3G - janvier 2019
-
-.pull-left[
-&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_3G_012019_vs-1.png" width="720" /&gt;
-]
-
-.pull-right[
-&lt;img src="./img/couv3G_nb_detail_operateurs_select_012019_v2.png" width=450 &gt;
-]
-
-
-
----
-# Zones exclusives en binomes
-### 2G (uniquement bonne ou très bonne couverture) - janvier 2019
-
-.pull-left[
-&lt;img src="index_files/figure-html/plot_binomes_operateurs_detail_012019_2G-1.png" width="720" /&gt;
-]
-
-.pull-right[
-&lt;img src="./img/couv2G_select_binomes_012019_v2.png" width=450 &gt;
-]
-
-
-
----
-# Zones exclusives en binomes
-### 4G - janvier 2019
-
-.pull-left[
-&lt;img src="index_files/figure-html/plot_binomes_operateurs_detail_012019-1.png" width="720" /&gt;
-]
-
-.pull-right[
-&lt;img src="./img/couv4G_select_binomes_012019_v2.png" width=450 &gt;
-]
-
-
-
-
----
-# Couverture théorique de la population
-### 4G - janvier 2019
-
-.pull-left[
-&lt;img src="index_files/figure-html/plot_nb_operateurs_detail_012019_vs_pop-1.png" width="720" /&gt;
-]
-
-.pull-right[
-&lt;img src="./img/couv4G_nb_detail_operateurs_select_012019_v4.png" width=450 &gt;
-]
-
-
----
-
-
-# Couverture 4G des équipements publics
-
-&lt;img src="./img/ELIGFIXE_012019_nboperateurs_v1.png" width=500&gt;
-
-
-&lt;img src="./img/ELIGFIXE_012019_tableauequipements_FRTOT_v2.png" width=700&gt;
-
-dans les outre-mer :
-
-&lt;img src="./img/ELIGFIXE_012019_tableauequipements_DOM_v2.png" width=700&gt;
-
-
-
----
-
-
-# Couverture 4G des équipements publics par région
-
-&lt;img src="./img/ELIGFIXE_012019_tableauequipements_v2.png" height=500&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
